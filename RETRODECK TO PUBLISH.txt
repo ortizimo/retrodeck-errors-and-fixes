@@ -1,19 +1,10 @@
-DO NOT PUBLISH THE FOLLOWING:
--login: retrodeck
--pass:	aceitunasaceitunas
-
-
-
-
-
-
 ---------------------------------------------------------
 RETRODECK SETUP ERRORS/ISSUES/OTHER 
 ---------------------------------------------------------
 (CAO: 2025.11.30)
 
 ADDED:
-
+- GFX FIFO on some Dolphin games --------NOT TESTED!!!
 
 ---------------------------------------------------------
 These are notes of fixes to errors, issues and other things that I’ve encountered in the past (four) months since I started setting it up. These notes are for a RetroDeck (PC) system (no STEAMDECK) aka a DIY console and using the Bazzite OS (Linux). All games, controllers are setup directly via ES-DE only. You can use any Linux OS also, but you will need to uninstall some useless programs like Libre Office, etc. Bazzite OS already comes without them.
@@ -595,4 +586,5 @@ DOLPHIN BEST SETTINGS
 ---------------------------------------------------------
 DISABLE DOLPHIN SEND DATA
 • Config > General > uncheck Usage Statistics
+
 
