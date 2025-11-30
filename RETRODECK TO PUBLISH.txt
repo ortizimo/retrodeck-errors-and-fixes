@@ -1,0 +1,598 @@
+DO NOT PUBLISH THE FOLLOWING:
+-login: retrodeck
+-pass:	aceitunasaceitunas
+
+
+
+
+
+
+---------------------------------------------------------
+RETRODECK SETUP ERRORS/ISSUES/OTHER 
+---------------------------------------------------------
+(CAO: 2025.11.30)
+
+ADDED:
+
+
+---------------------------------------------------------
+These are notes of fixes to errors, issues and other things that I’ve encountered in the past (four) months since I started setting it up. These notes are for a RetroDeck (PC) system (no STEAMDECK) aka a DIY console and using the Bazzite OS (Linux). All games, controllers are setup directly via ES-DE only. You can use any Linux OS also, but you will need to uninstall some useless programs like Libre Office, etc. Bazzite OS already comes without them.
+
+Note: After you do a fix or add new ROMS, do a backup of the entire retrodeck/ directory to an external drive.
+
+---------------------------------------------------------
+SYSTEM SPECS 
+---------------------------------------------------------
+• Hardware: 
+   o Gigabyte A520i AC 
+   o Ryzen 3800X 
+   o 32GB RAM 3200MHz 
+		i. Overkill, but I had RAM laying around so I used it all 
+   o 1TB 980 Samsung nVME 
+   o Nvidia 980Ti (6GB DDR5)
+
+• Software: 
+   o Bazzite OS (Fedora) 
+   o Retrodeck w/ES-DE
+   o Sunshine VNC Server (Fedora), Moonshine VNC Client (Windows)
+		i. For remote admin stuff
+   o WinSCP/PuTTY 
+		i. For remote admin stuff
+   o romnamer 1.2
+		i. Bulk ROM renamer
+   o backupNOW
+		i. Copies all ROMS, scraped art, scripts to another drive location
+   o shutdown 
+		i. Script service to shutdown system after quiting retrodeck
+		
+Note: Some Wii games need the actual Wii Controller to work. You can buy a Wii IR Bar in Amazon. (MAYFLASH W010 Wireless Sensor Dolphin bar for PC).
+
+---------------------------------------------------------
+TESTED CONSOLES
+---------------------------------------------------------
+   o ColecoVision
+   o Amiga600, Amiga1200
+   o XBOX
+   o TurboGrafx16, TurbGrafx16-CD
+   o NES, SNES, Gamecube, Wii/WiiWare
+   o Gameboy, Gameboy Color, Gameboy Advance
+   o NDS, N3DS
+   o Sega Master System, Genesis, Sega-CD, Dreamcast, GameGear
+   o NeoGeo System, NeoGeo Pocket
+   o PlayStation, PS2
+   
+---------------------------------------------------------
+INDEX (use Ctrl+F to search for subjects)
+---------------------------------------------------------
+• ERRORS 
+   o Failed to open path for writing media file. Permission problems? 
+   o MOK enrollment issue when changing OS or adding a new nVME 
+   o No game cover art found 
+   o Bezels won't turn off globally (emudeck only/for reference) 
+   o GFX FIFO on some Dolphin games --------NOT TESTED!!!
+---------------------------------------------------------
+• ISSUES 
+   o GPU settings change when dolphin updates 
+   o ROMS path changed after dolphin update 
+   o Disable Confirm Exit pop-up in dolphin 
+   o Disable UEFI/secureboot 
+   o Reinstalling Bazzite 
+   o Two nVMEs partitions instead of a single one 
+   o Change emulator in retrodeck 
+   o No scanlines on old emulators 
+   o Deleted a rom folder and cannot find it 
+   o Delete a flatpak 
+   o Reinstallation to Fix an issue (reset) 
+   o Disable screen locking 
+   o New ROMS not showing up under emulator 
+   o No scanlines in Dolphin emulator 
+   o Cannot SSH into fedora 
+   o PS1 games not working
+   o Fix corrupted retrodeck/won't run
+---------------------------------------------------------
+• OTHER
+   o Convert nkit.iso to ciso 
+   o Combine two Gamecube discs into a single ISO 
+   o Setup retroachievement login 
+   o Update retrodeck 
+   o Display clock on screen 
+   o Backup/restore all roms, bios and art 
+   o Reinstall retrodeck in case it doesn’t run 
+   o Hide/disable portmaster 
+   o Change .cci files to .3ds 
+   o Batch CIA 3DS Decryptor 
+   o Install/enable sunshine VNC in fedora
+   o Where does Orphand Data Cleanup saves to?
+   o Disable Dual code in Dolphin
+---------------------------------------------------------
+• Use wit to combine multidiscs into single .ciso 
+   o Step #1: Setup 
+   o Step #2: Make wit.exe a global variable 
+   o Step #3: Convert multidisk .ciso to single .iso file (Optional) 
+   o Step #4: Convert new single .iso yo Single .ciso file 
+• Convert .nkit Files To .iso 
+• Convert .bin Files To .chd 
+• Make an .m3u text file for multi-disc games loading
+• Make Dolphin change discs automatically (For Multidisc Games) 
+• Dolphin best settings
+• Disable Dolphin send data
+
+---------------------------------------------------------
+WHY RETRODECK AND NOT EMUDECK 
+---------------------------------------------------------
+I’ve actually tried both. However, there were some settings that are easier to do/disable in RetroDECK than in EmuDECK.
+
+One of the things I did not like in EmuDECK was the Bezel feature that is automatically setup for every console. Even disabling it through the very user friendly menu would not turn it off unless you go through the RetroArch settings also.
+
+Another thing I did not like was that some emulators did not run out of the box like they do in RetroDECK. With RetroDECK, most of the emulators worked as soon as you added ROMS to their directories/folders. Some of them need BIOS files that were easy to find using the WayBackMachine ([https://web.archive.org]. This being the main issue that made me jump to RetroDECK. But this was not as easy as I thought because I’m using a Fedora operating system and I needed to disable the Secure Boot in BIOS and use a MOK password. And this was a tricky thing to do. Instructions included below.
+
+FYI, if you change your nVME (or any other hardware) you WILL NEED this password so DO NOT LOSE IT!
+
+---------------------------------------------------------
+ERRORS
+---------------------------------------------------------
+Error: Failed to open path for writing media file. Permission problems? 
+Fix: 
+• Open terminal and go to the directory 
+• Check if any subdirectories or files read ‘ROOT’ in their permissions 
+• If they do, in terminal type: 
+   o sudo chown -R retrodeck:retrodeck <dir>/ 
+		i. All subdirs and files will now read retrodeck
+		i. I use retrodeck as the username, use your own username
+
+Note: This happens when you copy data over for backup and the user and rights are for ROOT and not username@hostname (look at the terminal for this information).
+---------------------------------------------------------
+Error: MOK enrollment issue when changing OS or adding a new nvme 
+Fix: 
+• Use mokutil to clear the key, then add new nvme 
+• Enter the new key and install the OS
+
+Note: DO THIS BEFORE INSTALLING A NEW OS!!!!
+---------------------------------------------------------
+Error: No game cover art found Fix: 
+• All art should be in retrodeck/ES-DE/downloaded\_media directory 
+• Use SCRAPER, then scrape with both of the sources 
+		i. Is best if you have a login/pass
+
+Note: Sometimes you will have to wait a few days for new art to be available
+---------------------------------------------------------
+Error: Bezels won't turn off globally (emudeck only/for reference) 
+Fix: 
+• Go to RetroArch settings pressing both controllers 
+• Quick Menu > On-Screen Overlay 
+• Turn of Autoload Preferred Overlay 
+• Turn of Autoload Display Overlay 
+• Exit 
+• Scroll Down > Overrides 
+• Select Save Content Directory Overrides to save globally (CORE) 
+• Select Save Content Directory Overrides to save globally (CORE) – twice 
+• Exit
+
+---------------------------------------------------------
+ISSUES 
+---------------------------------------------------------
+Issue: GPU settings change when dolphin updates 
+Fix: 
+• retrodeck config > Open Components 
+• Open Dolphin and click on Graphics icon 
+• Select Vulkan 
+• Select Auto 
+• Select Start in Fullscreen
+---------------------------------------------------------
+Issue: ROMS path changed after dolphin update 
+Fix: 
+• retrodeck config > Open Components 
+• Open Dolphin and click on Config icon 
+• In PATH tab select both Gamecube and Wii paths 
+   o retrodeck\roms\gc 
+   o retrodeck\roms\wii
+---------------------------------------------------------
+Issue: disable Confirm Exit pop-up in dolphin 
+Fix: 
+• retrodeck config > Open Components 
+• Open Dolphin and click on Config icon 
+• in INTERFACE tab uncheck Confirm on Stop option
+
+Note: check controllers also after a dolphin update!!!
+---------------------------------------------------------
+Issue: disable UEFI/secureboot 
+Fix: 
+• press DEL key 
+• go to boot option 
+• disable CSM Support option 
+• go back and select SecureBoot 
+• disable 
+• save and exit
+---------------------------------------------------------
+Issue: Reinstalling Bazzite (from USB) 
+Fix: 
+• Press DEL key 
+   o Set to Advance view 
+   o Go to Boot option 
+   o Disable CSM 
+   o Return and disable SecurityBoot 
+   o Save and exit 
+• Reinstall Linux 
+   o When done SHUTDOWN! and unplug USB stick 
+• Reboot 
+   o MOK will ask for password o Select Continue Boot
+
+Note: if all is good and you can boot into OS, then use MOKUTIL to change this MOK pass.
+---------------------------------------------------------
+# Issue: Two nVMEs partitions instead of a single one 
+Fix: 
+• press DEL key 
+• go to Boot option 
+• change one of them to disable 
+• test 
+• if not working return and select the second option as primary 
+• test 
+• if nothing works, then reinstall OS and use the MOK instruction above
+---------------------------------------------------------
+Issue: Change emulator in retrodeck 
+Fix: 
+• Press Start to go to Main Menu 
+• Other Settings > Alternative Emulators 
+• Exit 
+• Exit 
+• Exit
+---------------------------------------------------------
+Issue: No scanlines on old emulators 
+Fix: 
+• Start a game in the emulator you want to add scanlines to 
+• Go to RetroArch settings pressing both joycontrollers 
+• In the Quick Menu press UP twice to find SHADERS 
+• In shaders press UP four times to find SHADER PASSES 
+   o Change to 1 o Click on SHADER #0 and enter that option 
+• Find SHADERS > SHADERS_SLANG > SCANLINES > SHADERS 
+• Select scanlines-rere.slang (BEST) 
+		i. or res-independent-scanlines.slang 
+• Select APPLY CHANGES 
+• Go UP and select SAVE PRESET 
+• Select SAVE CORE PRESET to save the changes globally on that specific emulator (CORE) 
+• Press both joycontrollers to Exit
+---------------------------------------------------------
+Issue: Deleted a rom folder and cannot find it 
+Fix: 
+• If you're directly in the system it should be in the TRASH bin 
+• If it was deleted with a transferring tool (WinSCP) from Windows to Linux its gone
+
+Note: You can recreate the deleted folders using the ES-DE app in the Desktop and resetting the roms but they will be empty
+---------------------------------------------------------
+Issue: Delete a flatpak 
+Fix: 
+• flatpak list 
+• flatpak remove <pak>
+---------------------------------------------------------
+Issue: Reinstallation to fix an issue (reset) 
+Fix: 
+• Using the terminal: 
+   o flatpak install Flathub net.retrodeck.retrodeck 
+   o Y 
+   o Y 
+   o flatpak run net.retrodeck.retrodeck 
+		i. IMPORTANT or it won’t run!!!!!!!!!!! 
+• Change the owner's rights to the current user 
+   o sudo chown -R retrodeck:retrodeck retrodeck/ 
+• Add retrodeck to autostart 
+• Delete KDE wallet password 
+   o Launch Wallet Manager 
+   o follow instructions and force close 
+   o Close 
+   o Close 
+   o Apply button 
+• Add Auto Login: 
+   o Login Screen SDDM 
+   o Behavior button 
+   o Check Auto login as user and select user 
+   o Apply button 
+• Add RetroDeck Configurator to desktop 
+• Add retrodeck to taskbar 
+• Restart to test
+
+Note: You’ll need to add the scanlines again!
+---------------------------------------------------------
+Issue: Disable screen locking 
+Fix: 
+
+• Go to Screen Locking: 
+   o Change to NEVER 
+   o Uncheck Lock after waking from sleep 
+• Go to power management: 
+   o Do nothing 
+   o Dim automatically 5mins 
+   o Turn off screen NEVER 
+• Apply button
+---------------------------------------------------------
+Issue: New ROMS not showing up under emulator 
+Fix: 
+• Run any game from any console 
+• Press both joysticks down to get to the settings 
+• Get out of the quick menu and find Import Content 
+• In it, select Scan Directory option 
+• Select the console you need from the list 
+• Select Scan This Directory option 
+• Exit 
+• Exit to return back to Import Content menu 
+		i. You'll see the consoles there at the bottom
+
+Note: FIXES NO ROMS SHOWING UP UNDER FAVORITES!
+---------------------------------------------------------
+Issue: No scanlines in Dolphin emulator 
+Fix: 
+• Copy all your dolphin scanlines files to: 
+	o sudo cp <scanline_file> /var/lib/flatpak/app/net.retrodeck.retrodeck/x86\_64/stable/<hash>/files/share/dolphin-emu/sys/Shaders
+		i. I recommend mad-scanlines
+		
+• Open Dolphin from the RetroDECK Configurator > Open Component
+• Click on GRAPHICS button 
+• In ENHANCEMENTS Tab, select Post-Processing Effect drop-down menu
+• Select the scanlines you installed
+
+Note: DO NOT DELETE THE OTHER FILES HERE!!!!!!
+---------------------------------------------------------
+Issue: Cannot SSH into Fedora 
+Fix: 
+• In terminal: 
+   o sudo systemctl enable --now sshd 
+   o sudo firewall-cmd –state 
+   o sudo firewall-cmd --permanent --add-service=ssh 
+   o sudo firewall-cmd –reload 
+   o sudo firewall-cmd --zone=public --query-service=ssh
+
+Note: Use login info now.
+---------------------------------------------------------
+Issue: PS1 games not working
+Fix:
+   o rebooting after upload doesn't work
+   o make sure they're in .chd format...it works faster!
+   o turn off the system, wait 10secs then boot up      
+   
+note: .zip doesn't seem to work
+---------------------------------------------------------
+Issue: Fix corrupted retrodeck/won't run
+Fix:
+
+• SSH to the machine and stop the shutdow service if using the shutdown service I created
+   o systemctl --user status shutdown.service
+   o systemctl --user stop shutdown.service
+   o systemctl --user status shutdown.service
+
+• Reinstall retrodeck:
+   o sudo flatpak uninstall Flathub net.retrodeck.retrodeck -y
+		i. it won't deleted any roms or art!!!
+   o sudo flatpak install Flathub net.retrodeck.retrodeck -y 
+   o Y 
+   o Y 
+   o flatpak run net.retrodeck.retrodeck 
+		i. IMPORTANT or it won’t run!!!!!!!!!!! 
+   
+• Also double check that the autostart link is set and works
+• Make a shortcut on the taskbar and click on it
+• Exit retrodeck and reboot to test autostart
+
+note: NEVER SHUTDOWN SYSTEM VIA SSH 'SUDO SHUTDOWN NOW' THIS IS WHAT BREAKS THE PROGRAM!
+
+---------------------------------------------------------
+OTHER 
+---------------------------------------------------------
+Convert nkit.iso to ciso 
+• Use Multigame ISO Creator
+---------------------------------------------------------
+Combine two Gamecube discs into a single ISO 
+• Use Multigame ISO Creator 
+		i. Or use ‘WIT’ see last page for instructions
+
+Note: If WIT doesn’t work try WiiBackupFusion (WiiBaFu) 1.1 first!
+---------------------------------------------------------
+Setup retroachievement login 
+• Do this via retrodeck config or retroarch settings
+---------------------------------------------------------
+Update retrodeck 
+• flatpak update net.retrodeck.retrodeck
+---------------------------------------------------------
+Display clock on screen 
+• ES-DE configurations o UI Settings > Display Clock
+---------------------------------------------------------
+Backup/restore all roms, bios and art 
+• Make a backup of retrodeck/ dir 
+		i. include all bios, downloaded art and roms to another directory 
+		i. if you have the space or do it to an external drive 
+• sudo -s 
+   o cp -Rv retrodeck/ backup/ --force 
+• exit
+
+OR attach USB drive and mount it when asked: 
+   o cp -Rv retrodeck/ /media/bazzite/<mounted\_drive/retrodeckBackup> --force 
+   o exit 
+• using the bazzar (bazzite/fedora), delete any installation 
+• find and remove any retrodeck folders/files 
+   o find / -iname '*net.retrodeck*' 2>/dev/null -exec rm -rf{}
+
+Note: May need to do manual remove of each one. Redo all SCANLINES!
+---------------------------------------------------------
+Reinstall retrodeck in case it doesn’t run 
+• sudo flatpak remove net.retrodeck.retrodeck -y
+• sudo flatpak install flathub net.retrodeck.retrodeck -y
+• flatpak run net.retrodeck.retrodeck 
+		i. Important to do!
+		i. no need to sudo
+
+Note: Won’t delete roms or art and won’t add the unused subdirs/Redo all SCANLINES!
+---------------------------------------------------------
+Hide/disable portmaster:
+• go to retrodeck configurator 
+• go to Settings 
+• double click on portmaster > yes to hide
+---------------------------------------------------------
+Change .cci files to .3ds:
+• Use Batch CIA 3DS Decryptor 
+• Place .cci files in the same folder 
+  o if that doesn’t work, change files to .3ds 
+• Run the batch file 
+• Move files to n3ds subdirectory and test
+
+Note: Some will not decrypt/work!
+---------------------------------------------------------
+Batch CIA 3DS Decryptor Modification
+To make life easier because some ROMS in .cci format will not convert, add the following lines to the batch script using Notepad++
+
+In lines 4 to 7: 
+• rem ----------------------------
+• echo "Renaming .cci file to .3ds" 
+• ren \*.cci \*.3ds 
+• rem ----------------------------
+
+And in lines 99 to 102: 
+• rem -------------------------- 
+• echo "Deleting original .cci Files!" 
+• del \*.cci 
+• rem --------------------------
+
+Save and use it with any .cci files now!
+---------------------------------------------------------
+Install/enable sunshine VNC in fedora 
+• In terminal: 
+  o sudo dnf install sunshine 
+  o systemctl enable --now sunshine.service 
+
+if that doesn’t work add it to the AUTOSTART list:
+• reboot to test 
+• install moonlight VNC in Windows 
+  o change mouse option for remote not gaming 
+• go into sunshine options and login with Firefox saved login:password 
+		i. if no KB, then use COPY from firefox and paste into app 
+• go back to moonlight in Windows and PAIR the system with the info shown 
+		i. NEEDS KB!!!!!! 
+		i. MAY NEED TO DO A FEW TIMES UNTIL IT WORKS!!!
+
+---------------------------------------------------------
+Where does Orphand Data Cleanup saves to?
+• retrodeck/ES-DE/downloaded_media/CLEANUP
+
+---------------------------------------------------------
+Disable Dual code in Dolphin
+• go to retrodeck configurator > Open component > Dolphin
+• Options > Configuration 
+• uncheck Enable Dual code option
+• close everything and exit retrodeck configurator	
+	
+
+---------------------------------------------------------
+OTHER TOOLS 
+---------------------------------------------------------
+I’ve some BASH scripts to help me handle come things in retroDECK. 
+
+I've created a ROM Renamer BASH script to bulk rename unwanted text from filenames and it also can generate an optional gamelist.xml, but you don’t need it as retrodeck does its own when it scans the directories/folders. Other scripts found in my github.
+
+• https://github.com/ortizimo/romnamer
+---------------------------------------------------------
+USE WIT TO COMBINE MULTI-DISCS INTO SINGLE .CISO 
+You'll need to know Windows CMD Prompt commands for this to work!
+---------------------------------------------------------
+# STEP #1: SETUP
+---------------------------------------------------------
+1. Download wit-v3.05a-r8638-cygwin64 for Windows and unzip to its own folder
+2. Go to \\bin and copy out to C:\\Programs Files\\wit-v3.05a folder
+3. Delete these files: 
+  a. windows-install.exe 
+  b. windows-install.sh 
+  c. windows-uninstall.exe 
+  d. windows-uninstall.sh 
+		i. We’re going to run it as PORTABLE and some other files are for Linux
+4. Download and install Wii - Gamecube Multidisk ISO Creator
+---------------------------------------------------------
+# STEP #2: MAKE WIT.EXE A GLOBAL VARIABLE
+---------------------------------------------------------
+1. Go to Control Panel > System > Advanced System Settings
+2. Click on the Environment Variables... button
+3. Under User variables for <user> click on the Edit button
+4. Click the browse button and search for the wit folder then save the changes and exit
+5. Open CMD prompt and enter wit and press enter 
+		i. If done correctly it should start or you may need to reboot for changes to take effect
+---------------------------------------------------------
+# STEP #3: CONVERT MULTIDISK .CISO TO SINGLE .ISO FILE (Optional)
+---------------------------------------------------------
+1. Open CMD Prompt and 'cd' to the folder where your multidisk files are
+2. Check the files: wit lll <files> 
+		i. Those are three lowercase Ls
+3. Enter: wit.exe copy <file.ciso> <newfile.iso>
+4. Open Wii - Gamecube Multidisk ISO Creator and load each ISO file
+5. Check each SHRINK checkbox
+6. Click on the Create Multigame ISO button and make sure to remove any numbers in the filename of the new file
+---------------------------------------------------------
+# STEP #4: CONVERT NEW SINGLE .ISO TO SINGLE .CISO FILE
+---------------------------------------------------------
+1. Go back to the CMD Prompt
+2. Enter: wit.exe copy <newsingle.iso> <singlefile.ciso> 
+		i. The .ciso file may not be that small anyway
+3. Load the file to your favorite emulator and test
+4. Delete the older files and make a backup 
+
+Note: Step #3 may not work at all!
+---------------------------------------------------------
+CONVERT .NKIT FILES TO .ISO
+1. Extract nkit to its own folder
+2. Run NKitProcessApp.exe
+3. Drag-and-drop the .nkit file to the program
+4. From the top drop-down menu on the right, select 'convert to iso'
+5. Click the PROCESS button
+6. Drop the file into the ‘roms’ folder in retrodeck and test 
+		i. You can use WIT to create a .ciso file but it may not compress too much
+---------------------------------------------------------
+CONVERT .BIN FILES TO .CHD 
+This makes a single .chd file from all original .bin files. 
+
+Easiest way to do this is: 
+• Download chdman
+• Open and copy chdman.exe and CUE-GDI-ISO to CHD.bat into the same folder where the .bin files are located
+• Double click on the .bat file and let it finish 
+• Copy the .chd into the correct console folder and test 
+
+Note: No need to keep the other files that come with chdman!
+---------------------------------------------------------
+MAKE AN M3U TEXT FILE FOR MULTI-DISC GAMES LOADING
+This makes multi-disc games show up as single entries.
+
+• Create a text file with the name of the game and an extension named .m3u 
+	o touch Resident\ Evil\ Zero\ \(USA\).m3u
+		i. Resident Evil Zero (USA).m3u
+
+• Open the text file and enter the names of all the discs for the game
+	o nano Resident\ Evil\ Zero\ \(USA\).m3u
+		i. Resident Evil Zero (USA) (Disc 1).ciso
+		i. Resident Evil Zero (USA) (Disc 2).ciso
+
+• You can also push the text of each file into the text file:
+	o echo filename.ciso >> textfile.m3u
+	
+• Place the .m3u text file to the same directory with the game files
+		i. multi-disc games need to be in their own directory!
+
+• Rename the game directory to the same name as the .m3u text file
+		i. Both the directory and the .m3u will have the same name!
+
+• Run a game on that emulator, then press both joypads to enter the retroarch settings
+• Go to Import Content > Manual Scan
+• Select the console in System Name
+• In File Extensions enter m3u If you need to, separate options (cue m3u bin) 
+		i. Do not add commas! 
+• If you haven't already, checkmark the MAKE DOLPHIN CHANGE DISCS AUTOMATICALLY option
+		i. FOR MULTIDISC GAMES ONLY
+• Go to the UTILITIES option in retrodeck and RESCAN all ROM directories
+		i. If you had ART for that game, it will not show, so you'll need to SCRAPE again!
+
+---------------------------------------------------------
+DOLPHIN BEST SETTINGS
+• Config/General Enable Dual Core (Speedhack) = Uncheck
+• Config/General/Basic Settings ✔️ Enable Cheats
+• Graphics/General/Basic V-Sync = Uncheck
+• Graphics/General/Shader Compilation Change Specialized (Default) to Hybrid Ubershaders
+• Graphics/Hacks/Enbedded Frame Buffer (EFB) ✔️ Skip EFB Access from CPU
+• Graphics/Hacks/External Frame Buffer (XFB) ✔️ Immediately Present XFB
+• Graphics/Advanced/Ultility ✔️ Enable Graphics Mods
+• Graphics/Advanced/Misc ✔️ Enable Progressive Scan 
+---------------------------------------------------------
+DISABLE DOLPHIN SEND DATA
+• Config > General > uncheck Usage Statistics
+
