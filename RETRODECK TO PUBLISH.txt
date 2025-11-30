@@ -422,7 +422,8 @@ Update retrodeck
 
 ---------------------------------------------------------
 Display clock on screen 
-• ES-DE configurations o UI Settings > Display Clock
+• ES-DE configurations 
+	o UI Settings > Display Clock
 
 ---------------------------------------------------------
 Backup/restore all roms, bios and art 
@@ -634,4 +635,3 @@ DOLPHIN BEST SETTINGS
 ---------------------------------------------------------
 DISABLE DOLPHIN SEND DATA
 • Config > General > uncheck Usage Statistics
-
