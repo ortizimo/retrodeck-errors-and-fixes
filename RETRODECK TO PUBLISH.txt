@@ -1,7 +1,3 @@
-login: retrodeck
-pass: aceitunasaceitunas
-
-
 ---------------------------------------------------------
 RETRODECK SETUP ERRORS/ISSUES/OTHER 
 ---------------------------------------------------------
@@ -638,3 +634,4 @@ DOLPHIN BEST SETTINGS
 ---------------------------------------------------------
 DISABLE DOLPHIN SEND DATA
 • Config > General > uncheck Usage Statistics
+
