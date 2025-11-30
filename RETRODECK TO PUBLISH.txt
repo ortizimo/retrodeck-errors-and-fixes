@@ -380,7 +380,7 @@ Note: .zip doesn't seem to work
 ---------------------------------------------------------
 Issue: Fix corrupted retrodeck/won't run
 Fix:
-• SSH to the machine and stop the shutdow service if using the shutdown service I created
+• SSH to the machine and stop the shutdow service if using the shutdown-service script I created
    o systemctl --user status shutdown.service
    o systemctl --user stop shutdown.service
    o systemctl --user status shutdown.service
@@ -392,13 +392,13 @@ Fix:
    o Y 
    o Y 
    o flatpak run net.retrodeck.retrodeck 
-		i. IMPORTANT or it won’t run!!!!!!!!!!! 
+		i. IMPORTANT or AUTORUN won’t work!!!!!!!!!!! 
    
 • Also double check that the autostart link is set and works
 • Make a shortcut on the taskbar and click on it
 • Exit retrodeck and reboot to test autostart
 
-Note: NEVER SHUTDOWN SYSTEM VIA SSH 'SUDO SHUTDOWN NOW' THIS IS WHAT BREAKS THE PROGRAM!
+Note: NEVER SHUTDOWN SYSTEM VIA SSH 'SUDO SHUTDOWN NOW' THIS IS WHAT BREAKS THE PROGRAM!!!
 
 ---------------------------------------------------------
 OTHER 
@@ -451,7 +451,7 @@ Reinstall retrodeck in case it doesn’t run
 		i. Important to do!
 		i. no need to sudo
 
-Note: Won’t delete roms or art and won’t add the unused subdirs/Redo all SCANLINES!
+Note: Won’t delete roms or art and won’t add the unused subdirs. You must redo all SCANLINES!
 
 ---------------------------------------------------------
 Hide/disable portmaster:
