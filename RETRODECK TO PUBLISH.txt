@@ -1,10 +1,14 @@
+login: retrodeck
+pass: aceitunasaceitunas
+
+
 ---------------------------------------------------------
 RETRODECK SETUP ERRORS/ISSUES/OTHER 
 ---------------------------------------------------------
 (CAO: 2025.11.30)
 
 ADDED:
-- GFX FIFO on some Dolphin games --------NOT TESTED!!!
+- GFX FIFO on some Dolphin games -------- NOT TESTED!!!
 
 ---------------------------------------------------------
 These are notes of fixes to errors, issues and other things that I’ve encountered in the past (four) months since I started setting it up. These notes are for a RetroDeck (PC) system (no STEAMDECK) aka a DIY console and using the Bazzite OS (Linux). All games, controllers are setup directly via ES-DE only. You can use any Linux OS also, but you will need to uninstall some useless programs like Libre Office, etc. Bazzite OS already comes without them.
@@ -60,7 +64,7 @@ INDEX (use Ctrl+F to search for subjects)
    o MOK enrollment issue when changing OS or adding a new nVME 
    o No game cover art found 
    o Bezels won't turn off globally (emudeck only/for reference) 
-   o GFX FIFO on some Dolphin games --------NOT TESTED!!!
+   o GFX FIFO on some Dolphin games -------- NOT TESTED!!!
 ---------------------------------------------------------
 • ISSUES 
    o GPU settings change when dolphin updates 
@@ -163,6 +167,25 @@ Fix:
 • Exit
 
 ---------------------------------------------------------
+Error: GFX FIFO on some Dolphin games -------- NOT TESTED!!!
+Fix #1: 
+• Open Dolphin
+• Right click on the game giving you the errors and select PROPERTIES
+• Go to Game Config tab > General sub-tab 
+• In DETERMINISTIC DUAL CORE select AUTO
+• Exit and click on CONFIG icon
+• Uncheck ENABLE DUAL-CORE option
+• Exit
+
+Fix #2:
+• Click on GRAPHICS icon
+• Select the HACKS tab
+• Uncheck STORE EFB COPIES TO TEXTURE ONLY
+• Uncheck STORE XFB COPIES TO TEXTURE ONLY
+
+Note: If that doesn't work then try downloading the game from another place
+
+---------------------------------------------------------
 ISSUES 
 ---------------------------------------------------------
 Issue: GPU settings change when dolphin updates 
@@ -183,13 +206,13 @@ Fix:
    o retrodeck\roms\wii
 
 ---------------------------------------------------------
-Issue: disable Confirm Exit pop-up in dolphin 
+Issue: Disable Confirm Exit pop-up in dolphin 
 Fix: 
 • retrodeck config > Open Components 
 • Open Dolphin and click on Config icon 
 • in INTERFACE tab uncheck Confirm on Stop option
 
-Note: check controllers also after a dolphin update!!!
+Note: Check controllers also after a dolphin update!!!
 
 ---------------------------------------------------------
 Issue: disable UEFI/secureboot 
