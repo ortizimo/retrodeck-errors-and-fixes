@@ -1,10 +1,11 @@
 ---------------------------------------------------------
-RETRODECK SETUP ERRORS/ISSUES/OTHER 
+		RETRODECK SETUP ERRORS/ISSUES/OTHER 
 ---------------------------------------------------------
-(CAO: 2025.11.30)
+(CAO: 2025.12.12)
 
 ADDED:
-- GFX FIFO on some Dolphin games -------- NOT TESTED!!!
+- Multi-disc Gamecube Games not showing up in Dolphin
+- GFX FIFO on some Dolphin games
 
 ---------------------------------------------------------
 These are notes of fixes to errors, issues and other things that I’ve encountered in the past (four) months since I started setting it up. These notes are for a RetroDeck (PC) system (no STEAMDECK) aka a DIY console and using the Bazzite OS (Linux). All games, controllers are setup directly via ES-DE only. You can use any Linux OS also, but you will need to uninstall some useless programs like Libre Office, etc. Bazzite OS already comes without them.
@@ -80,6 +81,7 @@ INDEX (use Ctrl+F to search for subjects)
    o Cannot SSH into fedora 
    o PS1 games not working
    o Fix corrupted retrodeck/won't run
+   o Multi-disc Gamecube Games not showing up in Dolphin
 ---------------------------------------------------------
 • OTHER
    o Convert nkit.iso to ciso 
@@ -119,9 +121,12 @@ Another thing I did not like was that some emulators did not run out of the box 
 
 FYI, if you change your nVME (or any other hardware) you WILL NEED this password so DO NOT LOSE IT!
 
+
+
 ---------------------------------------------------------
-ERRORS
+						ERRORS					
 ---------------------------------------------------------
+
 Error: Failed to open path for writing media file. Permission problems? 
 Fix: 
 • Open terminal and go to the directory 
@@ -163,10 +168,15 @@ Fix:
 • Exit
 
 ---------------------------------------------------------
-Error: GFX FIFO on some Dolphin games -------- NOT TESTED!!!
+Error: GFX FIFO on some Dolphin games
 Fix #1: 
-• Open Dolphin
-• Right click on the game giving you the errors and select PROPERTIES
+• Kill the process named dolphin-emu via SSH
+    o top
+	o find <PID>
+	o Ctrl+C to cancel
+	o kill <PID>
+• Open Dolphin via Retrodeck Configurator > Open Component > Dolphin
+• Right click on the game giving you the error and select PROPERTIES
 • Go to Game Config tab > General sub-tab 
 • In DETERMINISTIC DUAL CORE select AUTO
 • Exit and click on CONFIG icon
@@ -179,10 +189,20 @@ Fix #2:
 • Uncheck STORE EFB COPIES TO TEXTURE ONLY
 • Uncheck STORE XFB COPIES TO TEXTURE ONLY
 
-Note: If that doesn't work then try downloading the game from another place
+Fix #3:
+• Click on Graphics icon
+• Select the GENERAL tab
+• In Backend option change OpenGL to Vulkan
+• Close out of the screen, refresh and try aka
+
+Notes: 
+- You may have the error still, but the controller will now work
+- If that doesn't work then try downloading the game from another place
+
+
 
 ---------------------------------------------------------
-ISSUES 
+						ISSUES 
 ---------------------------------------------------------
 Issue: GPU settings change when dolphin updates 
 Fix: 
@@ -401,7 +421,19 @@ Fix:
 Note: NEVER SHUTDOWN SYSTEM VIA SSH 'SUDO SHUTDOWN NOW' THIS IS WHAT BREAKS THE PROGRAM!!!
 
 ---------------------------------------------------------
-OTHER 
+Issue: Multi-disc Gamecube Games not showing up in Dolphin
+Fix:
+• Open Dolphin emulator via Retrodeck Configurator > Open Component
+• Click on Config icon
+• Click on Path tab
+• Make sure you have the path to GC in the list
+• Make sure you have the Search Subfolders checkbox clicked
+• Close out and refresh
+
+
+
+---------------------------------------------------------
+						OTHER 
 ---------------------------------------------------------
 Convert nkit.iso to ciso 
 • Use Multigame ISO Creator
@@ -514,8 +546,10 @@ Disable Dual code in Dolphin
 • uncheck Enable Dual code option
 • close everything and exit retrodeck configurator	
 
+
+
 ---------------------------------------------------------
-OTHER TOOLS 
+					OTHER TOOLS 
 ---------------------------------------------------------
 I’ve some BASH scripts to help me handle come things in retroDECK. 
 
